@@ -1,5 +1,5 @@
 import requests
-from tradutor import traduzir
+from tools.tradutor import traduzir
 
 url:str = "https://last-airbender-api.fly.dev/api/v1/characters/" # Total 500 Characters ?perPage= &page=
 query:str = f"perPage=10&page=5"

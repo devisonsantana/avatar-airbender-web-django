@@ -1,6 +1,6 @@
 import asyncio
 from googletrans import Translator
-from character import Character
+from models.character import Character
 
 def to_br(text:str):
     res = asyncio.run(Translator().translate(text=text, dest="pt", src="en"))
