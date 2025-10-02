@@ -57,9 +57,9 @@ deactivate
     ```
 2. Construa a imagem Docker:
     ```bash
-    docker build -t app
+    docker build -t app ./
     ```
 3. Execute o container:
     ```bash
-    docker run --rm app
+    docker run --rm app ./
     ```
