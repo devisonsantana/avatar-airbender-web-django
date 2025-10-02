@@ -63,3 +63,18 @@ deactivate
     ```bash
     docker run --rm app ./
     ```
+
+## Estrutura do projeto
+
+```plaintext
+./
+├── dockerfile
+├── main.py
+├── models
+│   └── character.py
+├── readme.md
+├── tools
+│   └── tradutor.py
+└── util
+    └── requirements.txt
+```
