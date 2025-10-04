@@ -1,19 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personagens</title>
+    <title>7 Days: Django</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Personagens Traduzidos</h1>
-    <ul>
-        {% for c in response %}
-        <li>
-            Nome: {{c.nome_traduzido}} <br>
-            Afiliação: {{c.afiliação_traduzida}}
-        </li>
-        {% endfor %}
-    </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://7daysofcode.io/assets/img/background-7days.1709759788.svg" width="30" height="30"
+                    class="d-inline-block align-top" alt="">
+                7 Days: Django!
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Afiliação</th>
+                    <th scope="col">Aliados</th>
+                    <th scope="col">Inimigos</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for p in personagem %}
+                <tr>
+                    <td class="align-middle"><img src="{{ p.photoUrl }}" alt="{{ p.name }}" class="img-fluid rounded-circle" style="width: 60px; height: 50px;"></td>
+                    <td class="align-middle">{{ p.nome_traduzido }}</td>
+                    <td class="align-middle">{{ p.afiliacao_traduzida }}</td>
+                    <td class="align-middle">{{ p.allies|last }}</td>
+                    <td class="align-middle">{{ p.enemies|last }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
