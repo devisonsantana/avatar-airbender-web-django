@@ -15,4 +15,4 @@ def characters(request):
         character["afiliação_traduzida"] = asyncio.run(Translator().translate(afiliacao, 'pt', 'en')).text
         nome = character.get("name", "none")
         character["nome_traduzido"] = asyncio.run(Translator().translate(nome, 'pt', 'en')).text
-    return HttpResponse(response)
+    return render(request, 'index.html', {'response':response})
