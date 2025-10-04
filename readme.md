@@ -4,13 +4,13 @@
 Para rodar este projeto, você precisa ter **uma** das seguintes opções configuradas em sua máquina:
 
 
-### Opção 1: Executar com Python 3
+### Opção 1: Executar com Python
 
-- [Python 3.8+](https://www.python.org/downloads/) instalado
+- [Python 3.13.7+](https://www.python.org/downloads/) instalado
 
 ### Opção 2: Executar com Docker
 
-- [Docker Engine](https://docs.docker.com/get-docker/) instalado (versão 20+ recomendada)
+- [Docker Engine](https://docs.docker.com/get-docker/) instalado
 
 ---
 
@@ -18,7 +18,7 @@ Para rodar este projeto, você precisa ter **uma** das seguintes opções config
 
 Você pode executar este projeto de duas formas: diretamente com Python ou utilizando Docker.
 
-### ✅ Rodando com Python 3
+### ✅ Rodando com Python
 
 1. Clone este repositório:
     ```bash
@@ -34,13 +34,13 @@ Você pode executar este projeto de duas formas: diretamente com Python ou utili
     ```
 3. Instale as dependências:
     ```bash
-    # Com base no arquivo de texto em `util/requirements.txt` 
-    # instala todos os modulos necessarios para o funcionamento do programa
-    pip install -r util/requirements.txt
+    # Instala todas as dependencias
+    pip install -r requirements.txt
     ```
 4. Execute o projeto:
    ```bash
-   python3 main.py
+   # Acesse seu localhost:8000
+   python3 manage.py runserver
    ```
 #### Desativando ambiente virtual
    
@@ -61,20 +61,32 @@ deactivate
     ```
 3. Execute o container:
     ```bash
-    docker run --rm app ./
+    docker run --rm app
     ```
 
-## Estrutura do projeto
+## Estrutura do Projeto
 
 ```plaintext
-./
-├── dockerfile
-├── main.py
-├── models
-│   └── character.py
-├── readme.md
-├── tools
-│   └── tradutor.py
-└── util
-    └── requirements.txt
+    7-days-of-code-py/
+    ├── avatar/
+    │   ├── admin.py
+    │   ├── apps.py
+    │   ├── __init__.py
+    │   ├── migrations/
+    │   │   └── __init__.py
+    │   ├── models.py
+    │   ├── tests.py
+    │   ├── urls.py
+    │   └── views.py
+    ├── dockerfile
+    ├── main.py
+    ├── manage.py
+    ├── readme.md
+    ├── requirements.txt
+    └── setup/
+        ├── asgi.py
+        ├── __init__.py
+        ├── settings.py
+        ├── urls.py
+        └── wsgi.py
 ```
