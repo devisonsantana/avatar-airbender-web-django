@@ -7,6 +7,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
@@ -19,9 +20,9 @@
     </nav>
 
     <div class="container mt-4">
-        <table class="table">
+        <table class="table table-striped-columns">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th scope="col">Id</th>
                     <th scope="col">Foto</th>
                     <th scope="col">Nome</th>
@@ -30,12 +31,13 @@
                     <th scope="col">Inimigos</th>
                 </tr>
             </thead>
-            
+
             <tbody>
                 {% for p in personagem %}
-                <tr>
+                <tr class="text-center">
                     <td class="align-middle">{{ forloop.counter }}</td>
-                    <td class="align-middle"><img src="{{ p.photoUrl }}" alt="{{ p.name }}" class="img-fluid rounded-circle" style="width: 60px; height: 50px;"></td>
+                    <td class="align-middle"><img src="{{ p.photoUrl }}" alt="{{ p.name }}"
+                            class="img-fluid rounded-circle" style="width: 60px; height: 50px;"></td>
                     <td class="align-middle">{{ p.nome_traduzido }}</td>
                     <td class="align-middle">{{ p.afiliacao_traduzida }}</td>
                     <td class="align-middle">{{ p.allies|last }}</td>
@@ -44,6 +46,22 @@
                 {% endfor %}
             </tbody>
         </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center mt-4">
+                {% if page > 1 %}
+                <li class="page-item"><a class="page-link" href="?page={{ page|add:"-1" }}">Página Anterior</a></li>
+                {% endif %}
+                <li class="page-item disabled">
+                    <span class="page-link">Página {{ page }}</span>
+                </li>
+                {% if page < 50 %}
+                <li class="page-item {% if not has_next %}{% endif %}">
+                    <a class="page-link" href="?page={{ page|add:"1" }}">Próxima Página</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
     </div>
 </body>
+
 </html>
