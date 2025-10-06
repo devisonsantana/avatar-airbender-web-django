@@ -134,3 +134,10 @@ deactivate
 │   └── wsgi.py
 └── vercel.json
 ```
+
+--- 
+
+<div align="center">
+    <p style="font-weight: bold">Obrigado por visitar</p>
+    <img src="./assets/aang.png" width="300px"style="border-radius: 10px;">
+</div>
