@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = envload.secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
 
@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'avatar',
-    'django_q',
 ]
 
 MIDDLEWARE = [
@@ -134,9 +133,10 @@ redis = envload.redis()
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': redis['url'],
+        'LOCATION': redis,
         'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient'
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            
         },
         # {seconds}x{minutes}x{hours}x{days} => 2.592.000 seconds(30 days)
         'TIMEOUT': 60 * 60 * 24 * 30,

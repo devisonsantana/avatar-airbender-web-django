@@ -1,18 +1,23 @@
 from django.shortcuts import render
 from django.http import HttpRequest
-import requests, asyncio
-from googletrans import Translator
+from django.views.decorators.cache import cache_page
+from .tasks import cached_translate_g, cached_translate_d
+import requests
 
 # Create your views here.
-def characters(request:HttpRequest):
-    url:str = "https://last-airbender-api.fly.dev/api/v1/characters/" # Total 500 Characters ?perPage= &page=
-    page:int = request.GET.get('page', 1)
-    query:str = f"perPage=10&page={page}"
 
-    response:list[dict] = requests.get(url=url, params=query).json()
-    for character in response:
-        afiliacao = character.get("affiliation")
-        character["afiliacao_traduzida"] = asyncio.run(Translator().translate(afiliacao, 'pt', 'en')).text
-        nome = character.get("name")
-        character["nome_traduzido"] = asyncio.run(Translator().translate(nome, 'pt', 'en')).text
-    return render(request, 'index.html', {'personagem': response, 'page': int(page)})
+@cache_page(60 * 60 * 24 * 30)
+def characters(request: HttpRequest):
+    url = 'https://last-airbender-api.fly.dev/api/v1/characters/'
+    page = request.GET.get('page', 1)
+    query = {'perPage': 10, 'page': page}
+    data = requests.get(url, params=query).json()
+
+    for c in data:
+        nome = c.get('name', '')
+        afiliacao = c.get('affiliation', '')
+
+        c['nome_traduzido'] = cached_translate_g(nome)
+        c['afiliacao_traduzida'] = cached_translate_g(afiliacao)
+
+    return render(request, 'index.html', {'personagem': data, 'page': int(page)})

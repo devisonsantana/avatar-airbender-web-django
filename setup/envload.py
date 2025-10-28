@@ -20,15 +20,9 @@ def secret_key() -> str:
         else:
             return key
         
-def redis():
-    load_dotenv(settings.BASE_DIR / 'redis.env')
-    patterns = {
-        'url': 'REDIS_URL',
-        'host': 'REDIS_HOST',
-        'password': 'REDIS_PASSWORD',
-        'port': 'REDIS_PORT',
-        }
-    config = {}
-    for key, val in patterns.items():
-        config[key] = os.getenv(val)
-    return config
+def redis(key:str='REDIS_URL') -> str:
+    env = os.getenv(key=key)
+    if not env:
+        load_dotenv(settings.BASE_DIR / 'redis.env')
+        env = os.getenv(key=key)
+    return env
