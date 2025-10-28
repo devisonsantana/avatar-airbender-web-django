@@ -17,7 +17,7 @@ def characters(request: HttpRequest):
         nome = c.get('name', '')
         afiliacao = c.get('affiliation', '')
 
-        c['nome_traduzido'] = cached_translate_g(nome)
-        c['afiliacao_traduzida'] = cached_translate_g(afiliacao)
+        c['nome_traduzido'] = cached_translate_d(nome)
+        c['afiliacao_traduzida'] = cached_translate_d(afiliacao)
 
     return render(request, 'index.html', {'personagem': data, 'page': int(page)})
