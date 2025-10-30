@@ -25,7 +25,7 @@ Foi um projeto desafiador e enriquecedor, unindo várias tecnologias e conceitos
 
 ## 📸 Demonstração
 
-![Demonstração da aplicação](./assets/screenshot.png)
+![Demonstração da aplicação](./assets/screenshot-light-mode.png)
 
 ---
 
@@ -139,5 +139,5 @@ deactivate
 
 <div align="center">
     <p style="font-weight: bold">Obrigado por visitar</p>
-    <img src="./assets/aang.png" width="300px"style="border-radius: 10px;">
+    <!-- <img src="./assets/aang.png" width="300px"style="border-radius: 10px;"> -->
 </div>

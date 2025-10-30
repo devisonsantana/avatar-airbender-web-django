@@ -27,17 +27,20 @@ class Command(BaseCommand):
         dest = options['dest']
         api_url = "https://last-airbender-api.fly.dev/api/v1/characters/"
 
-        self.stdout.write(self.style.NOTICE(f"Iniciando pré-tradução de {pages} páginas (per_page={per_page})"))
+        self.stdout.write(self.style.NOTICE(f"Starting pre-translate of {pages} pages (per_page={per_page})"))
 
         for page in range(1, pages + 1):
-            self.stdout.write(f"Processando página {page}/{pages}...")
+            self.stdout.write(f"Processing page {page}/{pages}...")
 
             data = requests.get(url=api_url, params={'perPage': per_page, 'page': page}).json()
+            
             nomes = [item.get('name', '') for item in data]
             afiliacoes = [item.get('affiliation', '') for item in data]
+            aliados = [i for item in data for i in item.get('allies', '')]
+            inimigos = [i for item in data for i in item.get('enemies', '')]
 
-            pre_load_translate(nomes + afiliacoes, src=src, dest=dest)
+            pre_load_translate(nomes + afiliacoes + aliados + inimigos, source=src, target=dest)
 
-            if not any(nomes or afiliacoes):
-                self.stdout.write(self.style.WARNING("⚠️  Página vazia, pulando."))
+            if not any(nomes or afiliacoes or aliados or inimigos):
+                self.stdout.write(self.style.WARNING("Empty page, ending the task."))
                 break
