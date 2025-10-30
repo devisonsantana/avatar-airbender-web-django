@@ -8,12 +8,13 @@
   "routes": [
     {
       "src": "/static/(.*)",
-      "dest": "/staticfiles/$1"
+      "dest": "staticfiles/$1"
     },
     {
       "src": "/(.*)",
       "dest": "setup/wsgi.py"
     }
   ],
-  "buildCommand": "./vercel_build.sh"
+  "outputDirectory": "staticfiles",
+  "buildCommand": "python3 manage.py collectstatic --noinput"
 }
