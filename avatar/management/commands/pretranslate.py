@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.core.cache import cache
 from avatar.tasks import pre_load_translate
 import requests
 
@@ -26,6 +27,10 @@ class Command(BaseCommand):
         src = options['src']
         dest = options['dest']
         api_url = "https://last-airbender-api.fly.dev/api/v1/characters/"
+
+        self.stdout.write(self.style.NOTICE(f"Before start we'll clean the old cache from Redis"))
+
+        cache.clear()
 
         self.stdout.write(self.style.NOTICE(f"Starting pre-translate of {pages} pages (per_page={per_page})"))
 

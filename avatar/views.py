@@ -6,7 +6,8 @@ import requests
 
 # Create your views here.
 
-# @cache_page(60 * 60 * 24)
+# cache page for 1 hour
+@cache_page(60 * 60 * 1)
 def characters(request: HttpRequest):
     url = 'https://last-airbender-api.fly.dev/api/v1/characters/'
     TOTAL_CHARS = 497

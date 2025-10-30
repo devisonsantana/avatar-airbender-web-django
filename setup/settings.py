@@ -127,7 +127,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'avatar/static')]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -135,7 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Redis cache configuration
 
-redis = envload.redis()
+redis = envload.redis() or envload.redis('REDIS_URL_RENDER')
 
 CACHES = {
     'default': {
@@ -146,7 +145,8 @@ CACHES = {
             
         },
         # {seconds}x{minutes}x{hours}x{days} => 2.592.000 seconds(30 days)
-        'TIMEOUT': 60 * 60 * 24 * 30,
+        # modified to 7 days
+        'TIMEOUT': 60 * 60 * 24 * 7,
         'KEY_PREFIX': 'avatarweb',
     }
 }
