@@ -1,4 +1,6 @@
 {
+  "buildCommand": "python3 manage.py collectstatic --noinput",
+  "outputDirectory": "staticfiles",
   "builds": [
     {
       "src": "setup/wsgi.py",
@@ -14,7 +16,5 @@
       "src": "/(.*)",
       "dest": "setup/wsgi.py"
     }
-  ],
-  "outputDirectory": "staticfiles",
-  "buildCommand": "python3 manage.py collectstatic --noinput"
+  ]
 }
