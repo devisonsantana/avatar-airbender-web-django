@@ -1,12 +1,22 @@
 {
-    "builds": [{
-        "src": "setup/wsgi.py",
-        "use": "@vercel/python"
-    }],
+    "builds": [
+        {
+            "src": "setup/wsgi.py",
+            "use": "@vercel/python"
+        },
+        {
+            "src": "avatar/static/**",
+            "use": "@vercel/static"
+        }
+    ],
     "routes": [
         {
             "src": "/(.*)",
             "dest": "setup/wsgi.py"
+        },
+        {
+            "src": "/static/(.*)",
+            "dest": "avatar/static"
         }
     ]
 }
