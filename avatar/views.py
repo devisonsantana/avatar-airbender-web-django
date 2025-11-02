@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpRequest
 from django.views.decorators.cache import cache_page
-from .tasks import deep_translator, deep_translator_batch
+from .tasks import deep_translator, deep_translator_batch, googletrans, googletrans_batch
 import requests
 
 # Create your views here.
@@ -24,9 +24,9 @@ def characters(request: HttpRequest):
         aliados = c.get('allies')
         inimigos = c.get('enemies')
 
-        c['nome'] = deep_translator(nome)
-        c['afiliacao'] = deep_translator(afiliacao)
-        c['aliados'] = deep_translator_batch(aliados)
-        c['inimigos'] = deep_translator_batch(inimigos)
+        c['nome'] = googletrans(nome)
+        c['afiliacao'] = googletrans(afiliacao)
+        c['aliados'] = googletrans_batch(aliados)
+        c['inimigos'] = googletrans_batch(inimigos)
 
     return render(request, 'index.html', {'personagem': data, 'page': int(page), 'total_pages': total_pages})

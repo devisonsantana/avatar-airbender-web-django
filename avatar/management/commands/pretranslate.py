@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.core.cache import cache
-from avatar.tasks import pre_load_translate
+from avatar.tasks import pre_load_translate_d, pre_load_translate_g
 import requests
 
 class Command(BaseCommand):
@@ -44,7 +44,8 @@ class Command(BaseCommand):
             aliados = [i for item in data for i in item.get('allies', '')]
             inimigos = [i for item in data for i in item.get('enemies', '')]
 
-            pre_load_translate(nomes + afiliacoes + aliados + inimigos, source=src, target=dest)
+            # pre_load_translate_d(nomes + afiliacoes + aliados + inimigos, source=src, target=dest)
+            pre_load_translate_g(nomes + afiliacoes + aliados + inimigos, src=src, dest=dest)
 
             if not any(nomes or afiliacoes or aliados or inimigos):
                 self.stdout.write(self.style.WARNING("Empty page, ending the task."))

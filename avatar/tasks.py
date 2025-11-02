@@ -50,8 +50,34 @@ def deep_translator_batch(texts:list[str], source:str='en', target:str='pt') -> 
         translated_texts += [v for v in to_cache.values()]
 
     return translated_texts
+
+def googletrans_batch(texts:list[str], src:str='en', dest:str='pt') -> list[str]:
+    """Recieves a list of texts and returns a new list with translated texts"""
+    if texts is None:
+        return ['']
     
-def pre_load_translate(texts:list[str], source:str='en', target:str='pt') -> None:
+    texts = [t for t in texts if t]
+    
+    keys = [f'traducao:{src}:{dest}:{t}' for t in texts]
+    cached = cache.get_many(keys=keys)
+
+    translated_texts = [v for v in cached.values()]
+
+    uncached = [t for t, k in zip(texts, keys) if k not in cached]
+
+    if uncached:
+        translated_list = asyncio.run(Translator().translate(text=texts, src=src, dest=dest))
+        traducoes = [t.text for t in translated_list]
+        to_cache = {
+            f'traducao:{src}:{dest}:{text}': translated for text, translated in zip(uncached, traducoes)
+        }
+        cache.set_many(to_cache)
+        cached.update(to_cache)
+        translated_texts += [v for v in to_cache.values()]
+
+    return translated_texts
+    
+def pre_load_translate_d(texts:list[str], source:str='en', target:str='pt') -> None:
     """This function sets on redis all uncached texts"""
     texts = [t for t in texts if t]
     keys = [f'traducao:{source}:{target}:{text}' for text in texts]
@@ -61,6 +87,21 @@ def pre_load_translate(texts:list[str], source:str='en', target:str='pt') -> Non
         translations = GoogleTranslator(source=source, target=target).translate_batch(uncached)
         to_cache = {
             f'traducao:{source}:{target}:{text}': translated for text, translated in zip(uncached, translations)
+        }
+        cache.set_many(to_cache)
+        cached.update(to_cache)
+
+def pre_load_translate_g(texts:list[str], src:str='en', dest:str='pt') -> None:
+    """This function sets on redis all uncached texts"""
+    texts = [t for t in texts if t]
+    keys = [f'traducao:{src}:{dest}:{text}' for text in texts]
+    cached = cache.get_many(keys=keys)
+    uncached = [t for t, k in zip(texts, keys) if k not in cached]
+    if uncached:
+        translated_list = asyncio.run(Translator().translate(text=texts, src=src, dest=dest))
+        translations = [t.text for t in translated_list]
+        to_cache = {
+            f'traducao:{src}:{dest}:{text}': translated for text, translated in zip(uncached, translations)
         }
         cache.set_many(to_cache)
         cached.update(to_cache)
