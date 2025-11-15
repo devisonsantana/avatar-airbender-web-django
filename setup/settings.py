@@ -138,7 +138,8 @@ CACHES = {
         'LOCATION': redis,
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-            
+            'SSL_CERT_REQS': None,
+            'CONNECTION_POOL_KWARGS': {'ssl_cert_reqs': None}
         },
         # {seconds}x{minutes}x{hours}x{days} => 2.592.000 seconds(30 days)
         # modified to 7 days
