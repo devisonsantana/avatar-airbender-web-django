@@ -26,12 +26,10 @@ jobs:
         run: |
           echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> $GITHUB_ENV
           echo "REDIS_URL=${{ secrets.REDIS_URL }}" >> $GITHUB_ENV
-          echo "REDIS_URL_RENDER=${{ secrets.REDIS_URL_RENDER }}" >> $GITHUB_ENV
 
       - name: Run pretranslate command
         env:
           REDIS_URL: ${{ secrets.REDIS_URL }}
           DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
-          REDIS_URL_RENDER: ${{ secrets.REDIS_URL_RENDER }}
         run: |
           python manage.py pretranslate
