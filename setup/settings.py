@@ -130,7 +130,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Redis cache configuration
 
-redis = envload.redis('REDIS_URL_RENDER')
+redis = envload.redis()
 
 CACHES = {
     'default': {
